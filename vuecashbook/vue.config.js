@@ -11,6 +11,7 @@ module.exports = defineConfig({
       '/': {
         target: 'http://localhost:80',
         changeOrigin: true,
+        ws:false, // 웹소켓여부?
       }
     }
   },

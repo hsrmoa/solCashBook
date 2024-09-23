@@ -1,4 +1,5 @@
 <template>
+  <div>
   <!-- <main style="height:10vh;" class="d-flex flex-nowrap">
     <HeaderLayout />
   </main> -->
@@ -9,15 +10,17 @@
     </div>
   </main> -->
   <div class="d-flex align-items-center py-4 bg-body-tertiary" style="height: 100vh;">
-    <main class="form-signin w-100 m-auto">
-      <router-view/>
-    </main>
+    <router-view/>
+  </div>
+  <alert-comp v-show="this.$store.state.alert.alertOpen === true"></alert-comp>
   </div>
 </template>
 <script>
+import AlertComp from './components/common/AlertComp.vue'
 // import HeaderLayout from '@/components/layouts/HeaderLayout.vue'
 // import LeftLayout from '@/components/layouts/LeftLayout.vue'
 export default {
+  components: { AlertComp },
   name: 'App'
   // components: {
   //   HeaderLayout,
