@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 /** store 모듈 */
 import alertStore from './common/alertStore.js'
+import confirmStore from './common/confirmStore.js'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ const getters = {}
 const mutations = {}
 const actions = {}
 const modules = {
-  alert: alertStore
+  alert: alertStore,
+  confirm: confirmStore
 }
 
 export default new Vuex.Store({

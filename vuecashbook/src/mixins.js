@@ -17,6 +17,27 @@ export default {
       'alertCall',
       'alertClose'
     ]),
+    ...mapActions('confirm', [
+      'setConfirmClear',
+      'confirmCall',
+      'confirmClose'
+    ]),
+    /* CONFIRM 팝업 호출 */
+    $Confirm (message1, message2, callback) {
+      this.confirmOk = false
+      this.setConfirmClear()
+      this.confirmCall({
+        confirmMsg1: message1,
+        confirmMsg2: message2,
+        fnYesCallback: callback
+      })
+    },
+    /* CONFIRM 팝업 확인버튼 클릭 */
+    $ConfirmOk (result) {
+      this.confirmOk = result
+      this.$store.state.confirm.fnYesCallback(result)
+      this.confirmClose()
+    },
     /* ALERT 팝업 호출 */
     $Alert (message1, message2, callback, btnOption) {
       this.setAlertClear()

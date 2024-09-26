@@ -27,12 +27,31 @@ export default {
     }
   },
   methods: {
+    /** 로그인버튼 클릭  */
     fnLogin () {
-      console.log('TEST')
-      this.$Alert('TEST')
+      if (this.fnLoginVaidation() === false) return
+      this.fnLoginAction()
     },
-    fnPageMove (path) {
-      console.log(path)
+    /* 로그인 시도 */
+    async fnLoginAction () {
+      console.log('로그인')
+    },
+    /** 로그인 validation 체크 */
+    fnLoginVaidation () {
+      if (this.$cmmn.isNull(this.userId)) {
+        this.$Alert('아이디를 입력해주세요')
+        return false
+      }
+
+      if (this.$cmmn.isNull(this.userPwd)) {
+        this.$Alert('비밀번호를 입력해주세요')
+        return false
+      }
+      return true
+    },
+    /** 페이지 이동 */
+    fnPageMove () {
+      this.$router.push('/member/joinOpt')
     }
   }
 }

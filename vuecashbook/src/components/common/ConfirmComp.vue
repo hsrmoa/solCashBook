@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal-wrap"
-    @click="this.fnAlertClose"
+    @click="this.fnConfirmClose"
   >
     <div
       class="modal-container"
@@ -11,14 +11,16 @@
         class="d-flex justify-content-center align-self-end p-2 mt-5"
       >
         <div>
-          <h5 class="h5 fw-bold text-center">
-            {{ this.$store.state.alert.alertMsg1 }}
+          <h5
+            class="h5 fw-bold text-center"
+          >
+            {{ this.$store.state.confirm.confirmMsg1 }}
           </h5>
           <h5
             class="h5 fw-bold text-center"
-            v-if="!this.$cmmn.isNull(this.$store.state.alert.alertMsg2)"
+            v-if="this.$cmmn.isNull(this.$store.state.confirm.confirmMsg2) === false"
           >
-            {{ this.$store.state.alert.alertMsg2 }}
+            {{ this.$store.state.confirm.confirmMsg2 }}
           </h5>
         </div>
       </div>
@@ -30,9 +32,16 @@
           <button
             type="button"
             class="btn btn-primary px-4 me-3"
-            @click="fnOkCheck"
+            @click="this.fnYesCheck"
           >
-            {{ this.$store.state.alert.btnOpt.ok }}
+            {{ this.$store.state.confirm.btnOpt.yes }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary px-4 me-3"
+            @click="this.fnNoCheck"
+          >
+          {{ this.$store.state.confirm.btnOpt.no }}
           </button>
         </div>
       </div>
@@ -44,15 +53,19 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'alertComp',
+  name: 'ConfirmComp',
   methods: {
-    ...mapActions('alert', ['setAlertClear']),
-    fnAlertClose () {
-      this.setAlertClear()
+    ...mapActions('confirm', ['setConfirmClear']),
+    fnConfirmClose () {
+      this.setConfirmClear()
     },
-    /* ALERT 버튼 클릭시 */
-    fnOkCheck () {
-      this.$AlertOk(true)
+    /* 확인버튼 클릭시 */
+    fnYesCheck () {
+      this.$ConfirmOk(true)
+    },
+    /* 취소버튼 클릭시  */
+    fnNoCheck () {
+      this.$ConfirmOk(false)
     }
   }
 }

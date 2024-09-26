@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // 전역 컴포넌트 설정
 import AlertComp from './components/common/AlertComp.vue'
+import ConfirmComp from './components/common/ConfirmComp.vue'
+import PopupLayout from './components/layouts/PopupLayout.vue'
 
 /** BootStrap 사용 */
 Vue.use(BootstrapVue)
@@ -22,7 +24,10 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$store = store
 
+// 전역 컴포넌트 설정
 Vue.component('AlertComp', AlertComp)
+Vue.component('ConfirmComp', ConfirmComp)
+Vue.component('PopupLayout', PopupLayout)
 
 new Vue({
   router,

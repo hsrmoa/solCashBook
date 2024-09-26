@@ -1,26 +1,25 @@
 <template>
   <div>
-  <!-- <main style="height:10vh;" class="d-flex flex-nowrap">
-    <HeaderLayout />
-  </main> -->
-  <!-- <main style="height:90vh;" class="d-flex flex-nowrap">
-    <LeftLayout />
-    <div class="bd-cheatsheet container-fluid bg-body ">
-      <router-view />
+    <!-- <main style="height:10vh;" class="d-flex flex-nowrap">
+      <HeaderLayout />
+    </main> -->
+    <!-- <main style="height:90vh;" class="d-flex flex-nowrap">
+      <LeftLayout />
+      <div class="bd-cheatsheet container-fluid bg-body ">
+        <router-view />
+      </div>
+    </main> -->
+    <div class="d-flex align-items-center py-4 bg-body-tertiary" style="height: 100vh;">
+      <router-view/>
     </div>
-  </main> -->
-  <div class="d-flex align-items-center py-4 bg-body-tertiary" style="height: 100vh;">
-    <router-view/>
-  </div>
-  <alert-comp v-show="this.$store.state.alert.alertOpen === true"></alert-comp>
+    <AlertComp v-show="this.$store.state.alert.alertOpen === true"></AlertComp>
+    <ConfirmComp v-show="this.$store.state.confirm.confirmOpen === true"></ConfirmComp>
   </div>
 </template>
 <script>
-import AlertComp from './components/common/AlertComp.vue'
 // import HeaderLayout from '@/components/layouts/HeaderLayout.vue'
 // import LeftLayout from '@/components/layouts/LeftLayout.vue'
 export default {
-  components: { AlertComp },
   name: 'App'
   // components: {
   //   HeaderLayout,

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginView from '@/views/common/LoginView.vue'
+import member from './member/index.js'
 Vue.use(VueRouter)
 
 const routes = [
@@ -8,7 +9,8 @@ const routes = [
     path: '/',
     name: 'login',
     component: LoginView
-  }
+  },
+  ...member
 ]
 
 const router = new VueRouter({
@@ -19,6 +21,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   console.log(process.env.BASE_URL)
+  console.log(to)
+  console.log(from)
   next()
 })
 

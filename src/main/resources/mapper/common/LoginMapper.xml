@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cash.book.common.dao.LoginDAO">
+	<!-- 로그인 체크-->
+	<select id="loginCheck">
+		SELECT 
+			COUNT(TM.MEMBER_SEQ) AS CNT
+		FROM TB_MEMBER AS TM
+		INNER JOIN TB_GRP_MEMBER AS TGM
+		ON 	TGM.GRP_MEMBER_SEQ 	= TM.GRP_MEMBER_SEQ
+		AND TGM.USE_YN			= 'Y'
+		<where>
+			<if test="login.userId != null and login.userId != ''">
+				AND TM.MEMBER_ID = #{login.userId} 
+			</if>
+			<if test="login.userPwd != null and login.userPwd != ''">
+				AND TM.MEMBER_PWD = #{login.userPwd} 
+			</if>
+		</where> 
+	</select>
+	<!-- 로그인 실패회수 넣기 -->
+	<update id="loginFailCntUpdate">
+		UPDATE  TB_MEMBER
+		SET		LOGIN_FAIL_CNT	=	LOGIN_FAIL_CNT + 1
+		,		MEMBER_STATUS	=	(CASE WHEN LOGIN_FAIL_CNT = 4 THEN '01' ELSE MEMBER_STATUS END)
+		,		UPDATE_ID		=	#{login.userId}
+		,		UPDATE_DATE		=	NOW()
+		WHERE 	MEMBER_ID		=	#{login.userId}
+	</update>
+	
+	<!-- 로그인 성공 -->
+	<update id="loginSuccess">
+		UPDATE  TB_MEMBER
+		SET		LOGIN_FAIL_CNT	=	0
+		,		LOGIN_DATE		=	DATE_FORMAT(NOW(),'%Y%m%d')
+		,		UPDATE_ID		=	#{login.userId}
+		,		UPDATE_DATE		=	NOW()
+		WHERE 	MEMBER_ID		=	#{login.userId}
+	</update>
+	
+	<!-- 로그인한 회원 정보 조회-->
+	<select id="loginUser">	
+		SELECT
+			TM.MEMBER_SEQ
+		,	TM.GRP_MEMBER_SEQ
+		,	TM.MEMBER_ID
+		,	TM.MEMBER_NM
+		,	TM.GRP_MASTER_YN
+		,	TM.MEMBER_STATUS
+		FROM TB_MEMBER AS TM
+		INNER JOIN TB_GRP_MEMBER AS TGM
+		ON 	TGM.GRP_MEMBER_SEQ	=	TM.GRP_MEMBER_SEQ
+		AND TGM.USE_YN			=	'Y'
+		WHERE TM.MEMBER_ID		=	#{login.userId}
+	
+	</select>
+</mapper>
